@@ -9,25 +9,27 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
     {
 
         private readonly ILeilaoRepository _repository;
+        private readonly ICategoriaRepository _categoriaRepository;
 
-        public DefaultAdminService(ILeilaoRepository repository)
+        public DefaultAdminService(ILeilaoRepository repository, ICategoriaRepository categoriaRepository)
         {
             _repository = repository;
+            _categoriaRepository = categoriaRepository;
         }
 
         public IEnumerable<Categoria> ConsultaCategorias()
         {
-            return _repository.BuscarCategorias();
+            return _categoriaRepository.BuscarTodos();
         }
 
         public IEnumerable<Leilao> ConsultaLeiloes()
         {
-            return _repository.BuscarLeiloes();
+            return _repository.BuscarTodos();
         }
 
         public Leilao ConsultaPorId(int id)
         {
-            return _repository.BuscarPorId(id);
+            return _repository.BusarPorId(id);
         }
 
         public void CadastraLeilao(Leilao leilao)
@@ -37,7 +39,7 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
 
         public void ModificaLeilao(Leilao leilao)
         {
-            _repository.Editar(leilao);
+            _repository.Alterar(leilao);
         }
 
         public void RemoveLeilao(Leilao leilao)
@@ -50,23 +52,23 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
 
         public void IniciaPregaoDoLeilaoComId(int id)
         {
-            Leilao leilao = _repository.BuscarPorId(id);
+            Leilao leilao = _repository.BusarPorId(id);
             if (leilao != null && leilao.Situacao == SituacaoLeilao.Pregao)
             {
                 leilao.Situacao = SituacaoLeilao.Finalizado;
                 leilao.Termino = DateTime.Now;
-                _repository.Editar(leilao);
+                _repository.Alterar(leilao);
             }
         }
 
         public void FinalizaPregaoDoLeilaoComId(int id)
         {
-            Leilao leilao = _repository.BuscarPorId(id);
+            Leilao leilao = _repository.BusarPorId(id);
             if (leilao != null && leilao.Situacao == SituacaoLeilao.Rascunho)
             {
                 leilao.Situacao = SituacaoLeilao.Pregao;
                 leilao.Inicio = DateTime.Now;
-                _repository.Editar(leilao);
+                _repository.Alterar(leilao);
             }
         }
 

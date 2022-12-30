@@ -3,9 +3,7 @@ using System.Collections.Generic;
 
 namespace Alura.LeilaoOnline.WebApp.Repository.IRepository
 {
-    public interface ICategoriaRepository
+    public interface ICategoriaRepository : IQuery<Categoria>
     {
-        IEnumerable<Categoria> ConsultaCategorias();
-        Categoria ConsultaCategoriaPorId(int id);
     }
 }

@@ -20,7 +20,7 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
         {
             var termoNormalized = termo.ToUpper();
             return _leilaoRepository
-                .BuscarLeiloes()
+                .BuscarTodos()
                 .Where(c =>
                     c.Titulo.ToUpper().Contains(termoNormalized) ||
                     c.Descricao.ToUpper().Contains(termoNormalized) ||
@@ -30,7 +30,7 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
         public IEnumerable<CategoriaComInfoLeilao> ConsultaCategoriasComTotalDeLeiloesEmPregao()
         {
            return _repository
-               .ConsultaCategorias()
+               .BuscarTodos()
                .Select(c => new CategoriaComInfoLeilao
                {
                    Id = c.Id,
@@ -44,7 +44,7 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
 
         public Categoria ConsultaCategoriaPorIdComLeiloesEmPregao(int id)
         {
-            return _repository.ConsultaCategoriaPorId(id);
+            return _repository.BusarPorId(id);
         }
     }
 }

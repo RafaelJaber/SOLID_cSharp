@@ -16,23 +16,6 @@ namespace Alura.LeilaoOnline.WebApp.Repository
             _context = new AppDbContext();
         }
         
-        public IEnumerable<Categoria> BuscarCategorias()
-        {
-            return _context.Categorias.ToList();
-        }
-
-        public IEnumerable<Leilao> BuscarLeiloes()
-        {
-            return _context.Leiloes
-                .Include(l => l.Categoria)
-                .ToList();
-        }
-
-        public Leilao BuscarPorId(int id)
-        {
-            return _context.Leiloes.FirstOrDefault(l => l.Id == id);
-        }
-
         public IEnumerable<Leilao> PesquisarLeiloes(string termo)
         {
             var leiloes = _context.Leiloes
@@ -45,18 +28,30 @@ namespace Alura.LeilaoOnline.WebApp.Repository
             return leiloes;
         }
 
-        public void Incluir(Leilao leilao)
+        public IEnumerable<Leilao> BuscarTodos()
         {
-            _context.Leiloes.Add(leilao);
-            _context.SaveChanges();
+            return _context.Leiloes
+                .Include(l => l.Categoria)
+                .ToList();
         }
-        
-        public void Editar(Leilao leilao)
+
+        public Leilao BusarPorId(int id)
         {
-            _context.Leiloes.Update(leilao);
+            return _context.Leiloes.FirstOrDefault(l => l.Id == id);
+        }
+
+        public void Incluir(Leilao obj)
+        {
+            _context.Leiloes.Add(obj);
             _context.SaveChanges();
         }
 
+        public void Alterar(Leilao obj)
+        {
+            _context.Leiloes.Update(obj);
+            _context.SaveChanges();
+        }
+        
         public void Excluir(Leilao leilao)
         {
             _context.Leiloes.Remove(leilao);

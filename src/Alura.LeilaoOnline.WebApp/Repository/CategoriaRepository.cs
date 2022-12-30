@@ -15,15 +15,14 @@ namespace Alura.LeilaoOnline.WebApp.Repository
         {
             _context = new AppDbContext();
         }
-
-
-        public IEnumerable<Categoria> ConsultaCategorias()
+        
+        public IEnumerable<Categoria> BuscarTodos()
         {
             return _context.Categorias
                 .Include(c => c.Leiloes);
         }
 
-        public Categoria ConsultaCategoriaPorId(int id)
+        public Categoria BusarPorId(int id)
         {
             return _context.Categorias
                 .Include(c => c.Leiloes)
