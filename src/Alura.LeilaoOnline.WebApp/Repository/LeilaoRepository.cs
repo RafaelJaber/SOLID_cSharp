@@ -1,15 +1,17 @@
-﻿using Alura.LeilaoOnline.WebApp.Models;
+﻿using Alura.LeilaoOnline.WebApp.Dados;
+using Alura.LeilaoOnline.WebApp.Models;
+using Alura.LeilaoOnline.WebApp.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Alura.LeilaoOnline.WebApp.Dados
+namespace Alura.LeilaoOnline.WebApp.Repository
 {
-    public class LeilaoDao
+    public class LeilaoRepository : ILeilaoRepository
     {
         private readonly AppDbContext _context;
 
-        public LeilaoDao()
+        public LeilaoRepository()
         {
             _context = new AppDbContext();
         }

@@ -1,3 +1,5 @@
+using Alura.LeilaoOnline.WebApp.Repository;
+using Alura.LeilaoOnline.WebApp.Repository.IRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,6 +9,7 @@ namespace Alura.LeilaoOnline.WebApp
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ILeilaoRepository, LeilaoRepository>();
             services
                 .AddControllersWithViews()
                 .AddNewtonsoftJson(options => 

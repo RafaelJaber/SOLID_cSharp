@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Alura.LeilaoOnline.WebApp.Models;
 using Alura.LeilaoOnline.WebApp.Dados;
+using Alura.LeilaoOnline.WebApp.Repository.IRepository;
 
 namespace Alura.LeilaoOnline.WebApp.Controllers
 {
@@ -9,24 +10,24 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
     [Route("/api/leiloes")]
     public class LeilaoApiController : ControllerBase
     {
-        private readonly LeilaoDao _dao;
+        private readonly ILeilaoRepository _repository;
 
-        public LeilaoApiController()
+        public LeilaoApiController(ILeilaoRepository repository)
         {
-            _dao = new LeilaoDao();
+            _repository = repository;
         }
 
         [HttpGet]
         public IActionResult EndpointGetLeiloes()
         {
-            var leiloes = _dao.BuscarLeiloes();
+            var leiloes = _repository.BuscarLeiloes();
             return Ok(leiloes);
         }
 
         [HttpGet("{id}")]
         public IActionResult EndpointGetLeilaoById(int id)
         {
-            var leilao = _dao.BuscarPorId(id);
+            var leilao = _repository.BuscarPorId(id);
             if (leilao == null)
             {
                 return NotFound();
@@ -37,26 +38,26 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         [HttpPost]
         public IActionResult EndpointPostLeilao(Leilao leilao)
         {
-            _dao.Incluir(leilao);
+            _repository.Incluir(leilao);
             return Ok(leilao);
         }
 
         [HttpPut]
         public IActionResult EndpointPutLeilao(Leilao leilao)
         {
-            _dao.Editar(leilao);
+            _repository.Editar(leilao);
             return Ok(leilao);
         }
 
         [HttpDelete("{id}")]
         public IActionResult EndpointDeleteLeilao(int id)
         {
-            var leilao = _dao.BuscarPorId(id);
+            var leilao = _repository.BuscarPorId(id);
             if (leilao == null)
             {
                 return NotFound();
             }
-            _dao.Excluir(leilao);
+            _repository.Excluir(leilao);
             return NoContent();
         }
 
