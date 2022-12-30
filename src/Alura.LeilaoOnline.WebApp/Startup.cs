@@ -1,5 +1,7 @@
 using Alura.LeilaoOnline.WebApp.Repository;
 using Alura.LeilaoOnline.WebApp.Repository.IRepository;
+using Alura.LeilaoOnline.WebApp.Services;
+using Alura.LeilaoOnline.WebApp.Services.Handlers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +12,9 @@ namespace Alura.LeilaoOnline.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<ILeilaoRepository, LeilaoRepository>();
+            services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+            services.AddTransient<IAdminService, DefaultAdminService>();
+            services.AddTransient<IProdutoService, DefaultProdutoService>();
             services
                 .AddControllersWithViews()
                 .AddNewtonsoftJson(options => 
