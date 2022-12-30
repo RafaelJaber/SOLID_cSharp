@@ -13,7 +13,7 @@ namespace Alura.LeilaoOnline.WebApp
         {
             services.AddTransient<ILeilaoRepository, LeilaoRepository>();
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
-            services.AddTransient<IAdminService, DefaultAdminService>();
+            services.AddTransient<IAdminService, ArquivamentoAdminService>();
             services.AddTransient<IProdutoService, DefaultProdutoService>();
             services
                 .AddControllersWithViews()
